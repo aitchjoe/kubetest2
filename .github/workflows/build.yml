@@ -1,0 +1,24 @@
+name: Build 
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.20.2
+    - name: Build
+      run: |
+        make install-all
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        # TODO: https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts#configuring-a-custom-artifact-retention-period
+        name: kubetest2-bin
+        path: |
+          /home/runner/go/bin/kubetest2
+          /home/runner/go/bin/kubetest2-noop
+          /home/runner/go/bin/kubetest2-tester-*
