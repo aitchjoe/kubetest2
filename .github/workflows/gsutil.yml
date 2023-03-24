@@ -9,10 +9,11 @@ jobs:
       run: |
         pip install gsutil
         gsutil cp gs://kubernetes-release/release/v1.21.1/kubernetes-test-linux-amd64.tar.gz .
+        gsutil cp gs://kubernetes-release/release/v1.21.1/kubernetes-client-linux-amd64.tar.gz .
     - name: Archive production artifacts
       uses: actions/upload-artifact@v3
       with:
         # TODO: https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts#configuring-a-custom-artifact-retention-period
         name: kubernetes-test
         path: |
-          ./kubernetes-test-linux-amd64.tar.gz
+          ./kubernetes-*-linux-amd64.tar.gz
